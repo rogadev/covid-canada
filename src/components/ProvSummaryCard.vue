@@ -1,4 +1,9 @@
 <script setup>
+import { ref } from "vue";
+
+const requiresAbbr = ref(false);
+const abbr = ref("");
+
 const props = defineProps([
   "province",
   "activeCases",
@@ -10,6 +15,33 @@ const props = defineProps([
   "image",
 ]);
 
+switch (props.province) {
+  case "BC":
+    requiresAbbr.value = true;
+    abbr.value = "British Columbia";
+    break;
+  case "NL":
+    requiresAbbr.value = true;
+    abbr.value = "Newfoundland and Labrador";
+    break;
+  case "PEI":
+    requiresAbbr.value = true;
+    abbr.value = "Prince Edward Island";
+    break;
+  case "NWT":
+    requiresAbbr.value = true;
+    abbr.value = "Northwest Territories";
+    break;
+  case "Repatriated":
+    requiresAbbr.value = true;
+    abbr.value =
+      "Citiziens of Canada who have been repatriated to Canada from other countries";
+    break;
+  default:
+    requiresAbbr.value = false;
+    abbr.value = "";
+}
+
 // Show a green number if the cases are decreasing. Red if increasing or the same.
 const deltaStyle =
   Number.parseInt(props.activeCasesDelta) <= 0
@@ -18,9 +50,12 @@ const deltaStyle =
 </script>
 
 <template>
-  <div class="container border pb-3">
+  <div class="container border pb-3 rounded-md shadow-md">
     <h1 class="text-2xl font-bold relative py-2">
-      {{ province }}
+      <abbr :title="abbr" class="cursor-pointer" v-if="requiresAbbr">{{
+        province
+      }}</abbr>
+      <span class="cursor-default" v-else>{{ province }}</span>
       <img class="absolute right-3 top-2 h-7 w-auto" :src="image" />
     </h1>
     <ul>

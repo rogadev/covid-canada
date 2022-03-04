@@ -57,10 +57,10 @@ function requiresRefresh() {
   console.log(lastUpdated, now);
   if (lastUpdated === now) {
     console.log("LocalStorage requires refresh.");
-    refreshDate.value = lastUpdated;
+    refreshDate.value = formatDate(lastUpdated);
     return false;
   }
-  refreshDate.value = now;
+  refreshDate.value = formatDate(now);
   return true;
 }
 
@@ -112,14 +112,29 @@ function formatNumber(num) {
   if (num === "NaN") num = "N/A"; // Repatriated has a N/A value
   return num;
 }
+
+/**
+ * Format the date using the Intl DateTimeFormat API.
+ * @param {Date | String} date Date object or string
+ */
+function formatDate(date) {
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Intl.DateTimeFormat("en-CA", options).format(new Date(date));
+}
 </script>
 
 <template>
-  <h1 class="text-4xl font-extrabold">COVID-19 Data</h1>
+  <h1 class="text-4xl font-extrabold">Canada COVID-19 Data</h1>
   <h2 class="text-3xl font-bold">
-    Canada: <time :datetime="refreshDate">{{ refreshDate }}</time>
+    Last Updated <time :datetime="refreshDate">{{ refreshDate }}</time>
   </h2>
-  <div class="mt-8 mx-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div
+    class="mt-8 mx-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-7"
+  >
     <ProvSummaryCard
       v-for="s in summary"
       :key="s.province"
@@ -133,6 +148,25 @@ function formatNumber(num) {
       :recentRecovered="formatNumber(s.recovered)"
     />
   </div>
+  <small class="pb-5"
+    >&copy; 2022 Ryan Paranich |
+    <a
+      class="text-blue-700 underline"
+      href="https://www.roga.dev"
+      target="blank"
+      >Roga.dev</a
+    ></small
+  >
+  <br />
+  <small class="pb-5"
+    >Data provided by
+    <a
+      class="text-blue-700 underline"
+      href="https://opencovid.ca"
+      target="blank"
+      >COVID-19 Canada Open Data Working Group</a
+    >
+  </small>
 </template>
 
 <style>

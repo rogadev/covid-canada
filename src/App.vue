@@ -3,7 +3,7 @@ import ProvSummaryCard from "./components/ProvSummaryCard.vue";
 
 import { ref } from "vue";
 const summary = ref("");
-const refreshDate = ref("")
+const refreshDate = ref("");
 getData();
 
 /**
@@ -42,7 +42,7 @@ async function fetchDataFromApi() {
   let response = await fetch("https://api.opencovid.ca/summary"); // Returns a Response object
   let result = await response.json(); // Parses res.body into JS object
   localStorage.setItem("data", JSON.stringify(result)); // Stringify JS object into JSON
-  refreshDate.value = new Date().toISOString()
+  refreshDate.value = new Date().toISOString().split("T")[0];
   localStorage.setItem("lastUpdated", refreshDate.value);
   summary.value = result.summary;
 }
@@ -54,10 +54,11 @@ async function fetchDataFromApi() {
 function requiresRefresh() {
   let lastUpdated = localStorage.getItem("lastUpdated")?.split("T")[0]; // Gives us YYYY-MM-DD
   let now = new Date().toISOString().split("T")[0]; // Gives us YYYY-MM-DD
+  console.log(lastUpdated, now);
   if (lastUpdated === now) {
-    console.log('LocalStorage requires refresh.')
-    refreshDate.value = lastUpdated
-    return false
+    console.log("LocalStorage requires refresh.");
+    refreshDate.value = lastUpdated;
+    return false;
   }
   refreshDate.value = now;
   return true;
@@ -115,7 +116,9 @@ function formatNumber(num) {
 
 <template>
   <h1 class="text-4xl font-extrabold">COVID-19 Data</h1>
-  <h2 class="text-3xl font-bold">Canada: {{ refreshDate }}</h2>
+  <h2 class="text-3xl font-bold">
+    Canada: <time :datetime="refreshDate">{{ refreshDate }}</time>
+  </h2>
   <div class="mt-8 mx-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     <ProvSummaryCard
       v-for="s in summary"

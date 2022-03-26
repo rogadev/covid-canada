@@ -54,7 +54,6 @@ async function fetchDataFromApi() {
 function requiresRefresh() {
   let lastUpdated = localStorage.getItem("lastUpdated")?.split("T")[0]; // Gives us YYYY-MM-DD
   let now = new Date().toISOString().split("T")[0]; // Gives us YYYY-MM-DD
-  console.log(lastUpdated, now);
   if (lastUpdated === now) {
     console.log("LocalStorage requires refresh.");
     refreshDate.value = formatDate(lastUpdated);

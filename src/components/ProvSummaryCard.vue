@@ -52,14 +52,31 @@ const deltaStyle =
 <template>
   <div class="container border pb-3 rounded-md shadow-md">
     <h1
-      class="text-2xl font-bold relative py-2 flex justify-between align-middle items-center px-6"
+      class="
+        text-2xl
+        font-bold
+        relative
+        py-2
+        flex
+        justify-between
+        align-middle
+        items-center
+        px-6
+      "
     >
-      <img class="h-auto w-5" src="/svg/up.svg" v-if="activeCasesDelta > 0" />
+      <img
+        class="h-auto w-5"
+        src="/svg/same.svg"
+        v-if="Number.parseInt(activeCasesDelta) === 0"
+      />
+      <img
+        class="h-auto w-5"
+        src="/svg/up.svg"
+        v-else-if="Number.parseInt(activeCasesDelta) > 0"
+      />
       <img class="h-auto w-5" src="/svg/down.svg" v-else />
       <abbr :title="abbr" class="cursor-pointer" v-if="requiresAbbr">
-        {{
-          province
-        }}
+        {{ province }}
       </abbr>
       <span class="cursor-default" v-else>{{ province }}</span>
       <img class="h-auto w-5" :src="image" />
@@ -68,8 +85,7 @@ const deltaStyle =
       <li>
         <span class="font-bold">{{ activeCases }}</span> Active Cases
         <span class="text-sm tracking-tight">
-          (
-          <span :class="deltaStyle">{{ activeCasesDelta }}</span> from prev.
+          (<span :class="deltaStyle">{{ activeCasesDelta }}</span> from prev.
           period)
         </span>
       </li>

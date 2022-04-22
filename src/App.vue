@@ -132,7 +132,16 @@ function formatDate(date) {
     Last Updated <time :datetime="refreshDate">{{ refreshDate }}</time>
   </h2>
   <div
-    class="mt-8 mx-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-7"
+    class="
+      mt-8
+      mx-auto
+      grid grid-cols-1
+      md:grid-cols-2
+      lg:grid-cols-3
+      gap-4
+      mb-7
+      w-4/5
+    "
   >
     <ProvSummaryCard
       v-for="s in summary"

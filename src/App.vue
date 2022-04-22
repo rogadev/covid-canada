@@ -156,25 +156,27 @@ function formatDate(date) {
       :recentRecovered="formatNumber(s.recovered)"
     />
   </div>
-  <small class="pb-5"
-    >&copy; 2022 Ryan Paranich |
-    <a
-      class="text-blue-700 underline"
-      href="https://www.roga.dev"
-      target="blank"
-      >Roga.dev</a
-    ></small
-  >
-  <br />
-  <small class="pb-5"
-    >Data provided by
-    <a
-      class="text-blue-700 underline"
-      href="https://opencovid.ca"
-      target="blank"
-      >COVID-19 Canada Open Data Working Group</a
+  <footer>
+    <small class="pb-5"
+      >&copy; 2022 Ryan Paranich |
+      <a
+        class="text-blue-700 underline"
+        href="https://www.roga.dev"
+        target="blank"
+        >Roga.dev</a
+      ></small
     >
-  </small>
+    <br />
+    <small class="pb-5"
+      >Data provided by
+      <a
+        class="text-blue-700 underline"
+        href="https://opencovid.ca"
+        target="blank"
+        >COVID-19 Canada Open Data Working Group</a
+      >
+    </small>
+  </footer>
 </template>
 
 <style>

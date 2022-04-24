@@ -41,10 +41,13 @@ async function fetchDataFromApi() {
   console.log("Attempting to fetch data from the API...");
   let response = await fetch("https://api.opencovid.ca/summary"); // Returns a Response object
   let result = await response.json(); // Parses res.body into JS object
+  let sortedData = result.summary.sort((a, b) => {
+    return b.active_cases - a.active_cases;
+  });
+  summary.value = sortedData;
   localStorage.setItem("data", JSON.stringify(result)); // Stringify JS object into JSON
   refreshDate.value = new Date().toISOString().split("T")[0];
   localStorage.setItem("lastUpdated", refreshDate.value);
-  summary.value = result.summary;
 }
 
 /**

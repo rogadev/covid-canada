@@ -1,5 +1,6 @@
 <script setup>
 import ProvSummaryCard from "./components/ProvSummaryCard.vue";
+import DetailsModal from "./components/DetailsModal.vue";
 
 import { ref } from "vue";
 const summary = ref("");
@@ -127,6 +128,20 @@ function formatDate(date) {
   };
   return new Intl.DateTimeFormat("en-CA", options).format(new Date(date));
 }
+
+let showModal = ref(false);
+let modalProvince = ref("");
+let modalImage = ref("");
+
+function openModal(province, image) {
+  showModal.value = true;
+  modalProvince.value = province;
+  modalImage.value = image;
+}
+
+function closeModal() {
+  showModal.value = false;
+}
 </script>
 
 <template>
@@ -157,8 +172,16 @@ function formatDate(date) {
       :totalVaccinated="formatNumber(s.cumulative_cvaccine)"
       :recentDeaths="formatNumber(s.deaths)"
       :recentRecovered="formatNumber(s.recovered)"
+      @openModal="openModal"
     />
   </div>
+  <DetailsModal
+    v-if="showModal"
+    :province="modalProvince"
+    :image="modalImage"
+    :details="summary.find((s) => s.province === modalProvince)"
+    @closeModal="closeModal"
+  />
   <footer>
     <small class="pb-5"
       >&copy; 2022 Ryan Paranich |

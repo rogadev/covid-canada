@@ -47,10 +47,15 @@ const deltaStyle =
   Number.parseInt(props.activeCasesDelta) <= 0
     ? "text-green-600"
     : "text-red-600";
+
+function openModal() {}
 </script>
 
 <template>
-  <div class="container border pb-3 rounded-md shadow-md">
+  <div
+    class="container border pb-3 rounded-md shadow-md"
+    @click="$emit('openModal', province, image)"
+  >
     <h1
       class="
         text-2xl

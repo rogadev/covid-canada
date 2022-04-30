@@ -49,7 +49,12 @@ const props = defineProps({
               {{ province }}
             </h3>
             <div class="mt-2">
-              <p>{{ details.cases }} as of {{ details.date }}</p>
+              <p>
+                {{ Intl.NumberFormat().format(details.cases) }}
+                new cases as of
+                {{ details.date }}
+              </p>
+              <p>{{ n }}</p>
             </div>
           </div>
         </div>

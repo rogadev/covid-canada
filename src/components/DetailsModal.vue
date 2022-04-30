@@ -50,7 +50,7 @@ const props = defineProps({
             </h3>
             <div class="mt-2">
               <p>
-                {{ Intl.NumberFormat().format(details.cases) }}
+                {{ Intl.NumberFormat().format(details.active_cases_change) }}
                 new cases as of
                 {{ details.date }}
               </p>

@@ -1,4 +1,6 @@
 <script setup>
+import stats from "../data/stats.js";
+
 const props = defineProps({
   province: {
     type: String,
@@ -13,6 +15,18 @@ const props = defineProps({
     required: true,
   },
 });
+
+const population = stats[props.province];
+const populationFormatted = Intl.NumberFormat().format(population);
+const hasCovidPercent = Number.parseFloat(
+  (props.details.active_cases / population) * 100
+).toFixed(1);
+const formattedActiveCasesChange = Intl.NumberFormat().format(
+  props.details.active_cases_change
+);
+// const formattedDate = Intl.DateTimeFormat("en-US").format(
+//   new Date(props.details.date)
+// );
 </script>
 
 <template>
@@ -50,11 +64,13 @@ const props = defineProps({
             </h3>
             <div class="mt-2">
               <p>
-                {{ Intl.NumberFormat().format(details.active_cases_change) }}
+                {{ formattedActiveCasesChange }}
                 new cases as of
                 {{ details.date }}
               </p>
-              <p>{{ n }}</p>
+              <p v-if="hasCovidPercent > 0">
+                {{ hasCovidPercent }}% of the province currently has covid.
+              </p>
             </div>
           </div>
         </div>

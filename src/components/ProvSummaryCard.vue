@@ -50,7 +50,10 @@ const deltaStyle =
 </script>
 
 <template>
-  <div class="container border pb-3 rounded-md shadow-md">
+  <div
+    class="container border pb-3 rounded-md shadow-md cursor-pointer"
+    @click="$emit('openModal', province, image)"
+  >
     <h1
       class="
         text-2xl

@@ -42,8 +42,8 @@ async function fetchDataFromApi() {
   console.log("Attempting to fetch data from the API...");
   let response = await fetch("https://api.opencovid.ca/summary"); // Returns a Response object
   let result = await response.json(); // Parses res.body into JS object
-  let sortedData = result.summary.sort((a, b) => {
-    return b.active_cases - a.active_cases;
+  let sortedData = result.data.sort((a, b) => {
+    return b.cases - a.cases;
   });
   summary.value = sortedData;
   localStorage.setItem("data", JSON.stringify(result)); // Stringify JS object into JSON
@@ -163,15 +163,12 @@ function closeModal() {
   >
     <ProvSummaryCard
       v-for="s in summary"
-      :key="s.province"
-      :province="s.province"
-      :image="getProvImage(s.province)"
-      :activeCases="formatNumber(s.active_cases)"
-      :activeCasesDelta="formatNumber(s.active_cases_change)"
-      :totalCases="formatNumber(s.cumulative_cases)"
-      :totalVaccinated="formatNumber(s.cumulative_cvaccine)"
+      :key="s.region"
+      :province="s.region"
+      :image="getProvImage(s.region)"
+      :activeCases="formatNumber(s.cases)"
+      :activeCasesDelta="formatNumber(s.cases_daily)"
       :recentDeaths="formatNumber(s.deaths)"
-      :recentRecovered="formatNumber(s.recovered)"
       @openModal="openModal"
     />
   </div>
@@ -179,7 +176,7 @@ function closeModal() {
     v-if="showModal"
     :province="modalProvince"
     :image="modalImage"
-    :details="summary.find((s) => s.province === modalProvince)"
+    :details="summary.find((s) => s.region === modalProvince)"
     @closeModal="closeModal"
   />
   <footer>

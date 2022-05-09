@@ -17,12 +17,12 @@ const props = defineProps({
 });
 
 const population = stats[props.province];
-const populationFormatted = Intl.NumberFormat().format(population);
+// const populationFormatted = Intl.NumberFormat().format(population);
 const hasCovidPercent = Number.parseFloat(
-  (props.details.active_cases / population) * 100
+  (props.details.cases / population) * 100
 ).toFixed(1);
 const formattedActiveCasesChange = Intl.NumberFormat().format(
-  props.details.active_cases_change
+  props.details.cases_daily
 );
 // const formattedDate = Intl.DateTimeFormat("en-US").format(
 //   new Date(props.details.date)

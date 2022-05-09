@@ -8,10 +8,7 @@ const props = defineProps([
   "province",
   "activeCases",
   "activeCasesDelta",
-  "totalCases",
-  "totalVaccinated",
   "recentDeaths",
-  "recentRecovered",
   "image",
 ]);
 
@@ -93,19 +90,7 @@ const deltaStyle =
         </span>
       </li>
       <li>
-        <span class="font-bold">{{ totalCases }}</span> Total cases
-        <span class="text-sm tracking-tight">(cumulative)</span>
-      </li>
-      <li>
-        <span class="font-bold">{{ totalVaccinated }}</span> Vaccinated
-        <span class="text-sm tracking-tight">(cumulative)</span>
-      </li>
-      <li>
         <span class="font-bold">{{ recentDeaths }}</span> Deaths This Period
-      </li>
-      <li>
-        <span class="font-bold">{{ recentRecovered }}</span> Recovered This
-        Period
       </li>
     </ul>
   </div>

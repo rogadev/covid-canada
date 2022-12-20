@@ -149,6 +149,11 @@ function closeModal() {
   <h2 class="text-3xl font-bold">
     Last Updated <time :datetime="refreshDate">{{ refreshDate }}</time>
   </h2>
+  <p class="pt-4 w-1/2 mx-auto font-bold text-red-500">
+    NOTE: Due to a recent upgrade with the opencovid.ca API, we are working
+    dilligently to update the app to accomidate new changes. If stats are not
+    display below, please check back tomorrow.
+  </p>
   <div
     class="
       mt-8
